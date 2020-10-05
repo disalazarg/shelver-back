@@ -8,6 +8,7 @@ defmodule Shelver.Application do
   def start(_type, _args) do
     children = [
       # Start the PubSub system
+      Shelver.State,
       {Phoenix.PubSub, name: Shelver.PubSub}
       # Start a worker by calling: Shelver.Worker.start_link(arg)
       # {Shelver.Worker, arg}
