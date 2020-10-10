@@ -8,7 +8,8 @@ defmodule ShelverWeb.BookSchemaTest do
     setup [:reset_store, :setup_data]
 
     test "responds with a list of books", %{conn: conn, book: book} do
-      conn = post conn, "/api/graphql", ql_query("{ list_books { id title }}", "list_books")
+      q = "{ list_books { id title }}"
+      conn = post conn, "/api/graphql", ql_query(q, "list_books")
       data = json_response(conn, 200)["data"]["list_books"]
 
       assert is_list(data)
@@ -20,7 +21,8 @@ defmodule ShelverWeb.BookSchemaTest do
     end
 
     test "give info on a single book", %{conn: conn, book: book} do
-      conn = post conn, "/api/graphql", ql_query("{ get_book(id: \"asdf\") { id title }}", "get_book")
+      q = "{ get_book(id: \"asdf\") { id title }}"
+      conn = post conn, "/api/graphql", ql_query(q, "get_book")
       json = json_response(conn, 200)["data"]["get_book"]
 
       refute is_nil(json["id"])

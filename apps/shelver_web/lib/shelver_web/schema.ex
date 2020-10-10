@@ -4,7 +4,7 @@ defmodule ShelverWeb.Schema do
   """
   use Absinthe.Schema
 
-  import_types ShelverWeb.BookSchema
+  import_types(ShelverWeb.BookSchema)
 
   @desc "Basic server info"
   object :server do
@@ -18,10 +18,10 @@ defmodule ShelverWeb.Schema do
       resolve(fn _, _ -> {:ok, %{service: "shelver", version: "0.0.1"}} end)
     end
 
-    import_fields :book_queries
+    import_fields(:book_queries)
   end
 
   mutation do
-    import_fields :book_mutations
+    import_fields(:book_mutations)
   end
 end
