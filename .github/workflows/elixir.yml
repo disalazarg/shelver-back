@@ -30,8 +30,9 @@ jobs:
 
   format:
 
-    name: Check formatting
+    name: Code format
     needs: build
+    runs-on: ubuntu-latest
 
     steps:
     - name: Check formatting
@@ -39,8 +40,9 @@ jobs:
 
   credo:
 
-    name: Check for credo warnings
+    name: Static code analysis
     needs: build
+    runs-on: ubuntu-latest
 
     steps:
     - name: Run credo
@@ -50,6 +52,7 @@ jobs:
 
     name: Run tests
     needs: build
+    runs-on: ubuntu-latest
 
     steps:
     - name: Run tests
