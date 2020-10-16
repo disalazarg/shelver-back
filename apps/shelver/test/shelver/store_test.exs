@@ -14,12 +14,17 @@ defmodule Shelver.StoreTest do
     end
 
     test "can create a book" do
-      assert {:ok, book} = Store.create_book(%Book{id: "test-id", title: "Test Title"})
+      assert {:ok, book} = Store.create_book(%{id: "test-id", title: "Test Title"})
     end
 
     test "can get a book already created" do
       assert {:ok, book} = Store.get_book("asdf")
       assert book.title == "Test Title"
+    end
+
+    test "can assign a suitable id to a struct that lacks one" do
+      assert {:ok, book} = Store.create_book(%{title: "Test Title"})
+      assert book.id == "test-title"
     end
   end
 

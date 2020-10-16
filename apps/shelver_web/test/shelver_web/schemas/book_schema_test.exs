@@ -34,8 +34,14 @@ defmodule ShelverWeb.BookSchemaTest do
   describe "book mutations" do
     setup [:reset_store]
 
-    @tag :skip
-    test "can create a book" do
+    test "can create a book", %{conn: conn} do
+      q = "{ create_book(title: \"Test Title\") { id title }}"
+      conn = post conn, "/api/graphql", ql_mut(q, "create_book")
+      json = json_response(conn, 200)["data"]["create_book"]
+
+      refute is_nil(json["id"])
+      assert json["title"] == "Test Title"
+      assert is_nil(json["author"])
     end
   end
 

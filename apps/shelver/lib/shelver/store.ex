@@ -17,8 +17,19 @@ defmodule Shelver.Store do
     State.get(Book, [id])
   end
 
-  @spec create_book(Book.t()) :: {:ok, Book.t()} | {:error, String.t()}
-  def create_book(book = %Book{}) do
+  @spec create_book(map()) :: {:ok, Book.t()} | {:error, String.t()}
+  def create_book(params = %{title: title}) do
+    params = Map.update(params, :id, slugify(title), &slugify/1)
+    book = struct(Book, params)
     State.put(Book, [book.id], book)
+  end
+
+  @spec slugify(String.t()) :: String.t()
+  defp slugify(nil), do: nil
+
+  defp slugify(string) do
+    string
+    |> String.downcase()
+    |> String.replace(~r/\s+/, "-")
   end
 end

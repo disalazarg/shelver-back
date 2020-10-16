@@ -19,4 +19,12 @@ defmodule ShelverWeb.SchemaCase do
       "variables" => "{}"
     }
   end
+
+  def ql_mut(mut, name) do
+    %{
+      "operationName" => name,
+      "query" => "mutation #{name} #{mut}",
+      "variables" => "{}"
+    }
+  end
 end

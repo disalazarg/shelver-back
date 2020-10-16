@@ -6,7 +6,7 @@ defmodule Shelver.StateTest do
 
   describe "books" do
     test "can create a book" do
-      book = %Book{id: "test", title: "Test Book"}
+      book = %{id: "test", title: "Test Book"}
       State.put(Book, ["test"], book)
 
       assert {:ok, ^book} = State.get(Book, ["test"])
