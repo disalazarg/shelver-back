@@ -5,7 +5,9 @@ defmodule ShelverWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ShelverWeb do
+  scope "/api" do
     pipe_through :api
+
+    forward "/graphql", Absinthe.Plug.GraphiQL, schema: ShelverWeb.Schema
   end
 end

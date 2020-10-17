@@ -37,6 +37,7 @@ defmodule Shelver.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:reflex, git: "https://bitbucket.org/disalazarg/reflex.git"},
       {:phoenix_pubsub, "~> 2.0"}
     ]
   end
