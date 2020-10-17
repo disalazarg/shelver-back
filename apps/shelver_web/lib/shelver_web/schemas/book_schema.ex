@@ -1,4 +1,7 @@
 defmodule ShelverWeb.BookSchema do
+  @moduledoc """
+  GraphQL schema for Books
+  """
   use Absinthe.Schema.Notation
 
   alias Shelver.Store
