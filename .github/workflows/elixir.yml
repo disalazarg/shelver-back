@@ -10,9 +10,17 @@ jobs:
   build:
 
     name: Build and test
-    runs-on: elixir:1.10-alpine
+    runs-on: ubuntu-latest
+    env:
+      MIX_ENV: test
 
     steps:
+    - uses: actions/checkout@v2
+    - name: Set up Elixir
+      uses: actions/setup-elixir@v1
+      with:
+        elixir-version: '1.10.3' # Define the elixir version [required]
+        otp-version: '22.3' # Define the OTP version [required]
     - name: Restore dependencies cache
       uses: actions/cache@v2
       with:
@@ -21,51 +29,11 @@ jobs:
         restore-keys: ${{ runner.os }}-mix-
     - name: Install dependencies
       run: mix deps.get
-    - name: Test build
+    - name: Compile project
       run: mix compile
-
-  format:
-
-    name: Code format
-    needs: build
-    runs-on: elixir:1.10-alpine
-
-    steps:
     - name: Check formatting
       run: mix format --check-formatted
-
-  credo:
-
-    name: Static code analysis
-    needs: build
-    runs-on: elixir:1.10-alpine
-
-    steps:
-    - name: Restore dependencies cache
-      uses: actions/cache@v2
-      with:
-        path: deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
-    - name: Install dependencies
-      run: mix deps.get
-    - name: Run credo
+    - name: Static code analysis
       run: mix credo -a
-
-  test:
-
-    name: Run tests
-    needs: build
-    runs-on: elixir:1.10-alpine
-
-    steps:
-    - name: Restore dependencies cache
-      uses: actions/cache@v2
-      with:
-        path: deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
-    - name: Install dependencies
-      run: mix deps.get
     - name: Run tests
       run: mix test
