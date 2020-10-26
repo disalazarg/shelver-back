@@ -6,6 +6,7 @@ defmodule Shelver.Umbrella.MixProject do
       apps_path: "apps",
       version: "0.1.0",
       start_permanent: Mix.env() == :prod,
+      name: "Shelver",
       deps: deps(),
       aliases: aliases(),
       test_coverage: [tool: ExCoveralls],
@@ -28,6 +29,7 @@ defmodule Shelver.Umbrella.MixProject do
   defp deps do
     [
       {:credo, "~> 1.4.1", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.22", only: [:dev], runtime: false},
       {:excoveralls, "~> 0.10", only: :test}
     ]
   end
