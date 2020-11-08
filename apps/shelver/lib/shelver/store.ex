@@ -7,20 +7,21 @@ defmodule Shelver.Store do
 
   @type id :: String.t()
 
-  @spec list_books() :: list(Book.t())
-  def list_books() do
-    State.list(Book, [])
+  @spec list_books(map(), map()) :: {:ok, list(Book.t())} | {:error, String.t()}
+  def list_books(_args, _ctx \\ %{}) do
+    {:ok, State.list(Book, [])}
   end
 
-  @spec get_book(id) :: Book.t()
-  def get_book(id) do
+  @spec get_book(map(), map()) :: {:ok, Book.t()} | {:error, String.t()}
+  def get_book(%{id: id}, _ctx \\ %{}) do
     State.get(Book, [id])
   end
 
-  @spec create_book(map()) :: {:ok, Book.t()} | {:error, String.t()}
-  def create_book(params = %{title: title}) do
+  @spec create_book(map(), map()) :: {:ok, Book.t()} | {:error, String.t()}
+  def create_book(params = %{title: title}, _ctx \\ %{}) do
     params = Map.update(params, :id, slugify(title), &slugify/1)
     book = struct(Book, params)
+
     State.put(Book, [book.id], book)
   end
 

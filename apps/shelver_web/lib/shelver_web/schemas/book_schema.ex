@@ -16,14 +16,14 @@ defmodule ShelverWeb.BookSchema do
   object :book_queries do
     @desc "List books"
     field :list_books, list_of(:book) do
-      resolve(fn _, _ -> {:ok, Store.list_books()} end)
+      resolve(&Store.list_books/2)
     end
 
     @desc "Get book"
     field :get_book, :book do
       arg(:id, :string)
 
-      resolve(fn %{id: id}, _ -> Store.get_book(id) end)
+      resolve(&Store.get_book/2)
     end
   end
 
@@ -34,7 +34,7 @@ defmodule ShelverWeb.BookSchema do
       arg(:author, :string)
       arg(:description, :string)
 
-      resolve(fn args, _ -> Store.create_book(args) end)
+      resolve(&Store.create_book/2)
     end
   end
 end

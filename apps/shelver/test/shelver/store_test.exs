@@ -8,7 +8,7 @@ defmodule Shelver.StoreTest do
     setup [:setup_data]
 
     test "can get a list of books" do
-      list = Store.list_books()
+      assert {:ok, list} = Store.list_books(%{}, %{})
 
       assert Enum.all?(list, fn book -> assert %Book{} = book end)
     end
@@ -18,7 +18,7 @@ defmodule Shelver.StoreTest do
     end
 
     test "can get a book already created" do
-      assert {:ok, book} = Store.get_book("asdf")
+      assert {:ok, book} = Store.get_book(%{id: "asdf"}, %{})
       assert book.title == "Test Title"
     end
 
