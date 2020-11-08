@@ -38,6 +38,7 @@ defmodule Shelver.MixProject do
   defp deps do
     [
       {:reflex, git: "https://bitbucket.org/disalazarg/reflex.git"},
+      {:xandra, "~> 0.13.1"},
       {:phoenix_pubsub, "~> 2.0"}
     ]
   end
